@@ -157,6 +157,11 @@ proxy.on('proxyRes', function (proxyReq, req, res) {
 
 http.createServer(app).listen(PORT, BIND_ADDRESS);
 
+http.get('*', function(req, res) {  
+    res.redirect('https://' + req.headers.host + req.url);
+)}
+
+
 if(!argv.s) {
     console.log(figlet.textSync('AWS ES Proxy!', {
         font: 'Speed',
