@@ -10,6 +10,7 @@ var figlet = require('figlet');
 var basicAuth = require('basic-auth-connect');
 var compress = require('compression');
 var url = require('url')
+var sslRedirect = require('heroku-ssl-redirect');
 
 var yargs = require('yargs')
     .usage('usage: $0 [options] <aws-es-cluster-endpoint>')
@@ -114,6 +115,7 @@ var proxy = httpProxy.createProxyServer({
 });
 
 var app = express();
+app.use(sslRedirect());
 app.use(compress());
 if (argv.u && argv.a) {
   app.use(basicAuth(argv.u, argv.a));
